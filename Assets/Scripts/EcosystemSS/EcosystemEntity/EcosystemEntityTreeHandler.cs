@@ -48,7 +48,7 @@ public class EcosystemEntityTreeHandler : MonoBehaviour {
 
 	void TreeUpdate(){		
 		
-		Debug.Log ("Updating Trees");
+		//Debug.Log ("Updating Trees");
 
 
 		int indexA = treeMatureCount - 1;
@@ -67,11 +67,11 @@ public class EcosystemEntityTreeHandler : MonoBehaviour {
 		GameObject treeFocus = treeDictionaryMature [randomKey];
 
 		if (treeFocus != null) {
-			Debug.Log ("Updating:" + treeFocus.name);
+			//Debug.Log ("Updating:" + treeFocus.name);
 			EcosystemEntityTree treeFocusData = treeFocus.GetComponent<EcosystemEntityTree> ();
 
 			
-			treeFocus.renderer.material.color = new Color (0, 1, 0);
+			//treeFocus.renderer.material.color = new Color (0, 1, 0);
 			CreateTree (treeFocus);	
 			
 				}
@@ -109,7 +109,7 @@ public class EcosystemEntityTreeHandler : MonoBehaviour {
 				}
 			}
 		} else {
-			Debug.Log("NoHit");
+			//Debug.Log("NoHit");
 		}
 	
 

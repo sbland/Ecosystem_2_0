@@ -9,6 +9,7 @@ public class EcosystemEntityTree : MonoBehaviour
 	public int oldAge = 7; // age that reproduction is stopped
 	public int predictedDeath = 10;// int Seconds age that death is predicted
 	public Vector3 growthAmount = new Vector3 (); // vector to add to current size on growth
+	public float growthRate = 1f;
 	public string uniqueName = "";
 	public enum AgeStatus {DEFAULT,YOUNG, MATURE, OLD, DEAD};
 	public AgeStatus ageStatus = AgeStatus.YOUNG;
@@ -25,7 +26,7 @@ public class EcosystemEntityTree : MonoBehaviour
 	void Awake()
 	{
 
-		gameObject.transform.localScale = new Vector3 (1f, 1f, 1f);
+		gameObject.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
 		age = 0;
 		ageStatus = AgeStatus.YOUNG;
 
@@ -35,6 +36,9 @@ public class EcosystemEntityTree : MonoBehaviour
 		StartCoroutine (AgeCoroutines ());
 		StartCoroutine (Growing ());
 
+		growthAmount.x += Random.Range (0, 0.001f);
+		growthAmount.y += Random.Range (0, 0.001f);
+		growthAmount.z += Random.Range (0, 0.001f);
 	
 	}
 
@@ -105,7 +109,7 @@ public class EcosystemEntityTree : MonoBehaviour
 		//gameObject.renderer.material.color = new Color(ageRatio, 0,0);
 		while (ageStatus != AgeStatus.OLD) {
 			gameObject.transform.localScale += growthAmount;
-			yield return null;
+			yield return new WaitForSeconds(growthRate);
 				}
 		yield return null;
 
