@@ -79,7 +79,9 @@ public class Ecosystem : MonoBehaviour {
 	void Awake () {
 		Initialization ();
 		
-		File.WriteAllText (logDir, "Trees, Humans, Cow, Oxygen, CO2 \r\n");	//Write column headers
+		try{
+			File.WriteAllText (logDir, "Trees, Humans, Cow, Oxygen, CO2 \r\n");
+		}catch{};	//Write column headers
 
 	}
 
@@ -201,7 +203,8 @@ public class Ecosystem : MonoBehaviour {
 		}
 		printme += EcosystemEntityTreeHandler.treeCount + ", " + atmosphere.Oxygen + ", " + atmosphere.Co + "\r\n";
 
-		File.AppendAllText(logDir, printme);
+		try{File.AppendAllText(logDir, printme);}catch{
+				}
 
 		//string[] printme = {EcosystemEntityData.Trees.Count + "", ", " + EcosystemEntityData.Humans.Count, ", "+ EcosystemEntityData.Cows.Count, ", " + atmosphere.Oxygen, ", " + atmosphere.Co + "\r\n"};
 		//for (int i = 0; i<printme.Length; i++) 

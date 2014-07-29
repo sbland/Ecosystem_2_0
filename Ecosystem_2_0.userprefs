@@ -1,10 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\EcosystemSS\EcosystemEntity\EcosystemEntityTree.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\EcosystemSS\Ecosystem.cs">
     <Files>
-      <File FileName="Assets\Scripts\EcosystemSS\Ecosystem.cs" Line="214" Column="1" />
-      <File FileName="Assets\Scripts\EcosystemSS\EcosystemEntity\EcosystemEntityTree.cs" Line="112" Column="46" />
-      <File FileName="Assets\Scripts\EcosystemSS\EcosystemEntity\EcosystemEntityTreeHandler.cs" Line="55" Column="40" />
+      <File FileName="Assets\Scripts\EcosystemSS\Ecosystem.cs" Line="207" Column="6" />
+      <File FileName="Assets\Scripts\EcosystemSS\EcosystemEntity\EcosystemEntityTree.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\EcosystemSS\EcosystemEntity\EcosystemEntityTreeHandler.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
