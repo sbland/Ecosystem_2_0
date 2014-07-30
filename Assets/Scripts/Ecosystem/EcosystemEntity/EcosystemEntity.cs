@@ -29,199 +29,74 @@ using System.Collections;
 
 public class EcosystemEntity : MonoBehaviour
 {
-	//properties
-	//Atmosphere
-	public float m_coChange = 0f;	//amount to add to global per second Co change
-	public float m_oxygenChange = 0f; //amount to add to global per second Oxygen change
+	public int age = 0; // in Seconds
 
-	//Requirements
-	public float oxygenReqUpper = 0f;  
-	public float coReqUpper = 0f;
-	public float tempReq = 0f;
+	public enum AgeStatus {DEFAULT,YOUNG, MATURE, OLD, DEAD};
+	public AgeStatus ageStatus = AgeStatus.YOUNG;
 
-	//Food
-	public string[] foodGroupTargets;	//List of foods this entity eats
-	public string foodGroup = "";	//food group of entity
+	public int matureAge = 5; //age that reproduction is allowed
+	public int oldAge = 7; // age that reproduction is stopped
+	public int predictedDeath = 10;// int Seconds age that death is predicted
 
-	//Growth
-	public float growthAmount = 1f;	//Growth speed adjustment constant
-
-	//Update speed
-	public int updateRate = 500; //Number of frames between updates
-	public int updateCount = 0;	//Initial update frame count
-	public int adjustment = 1;	//Entity balance adjustment (Higher values increase population growth speed)
-
-	public string entityName = null;
-
-	public bool registered = false;
-
-	public Rigidbody target;
-	public bool nearFood = false; //Switch to indicate food has entered vicinity
-
-
-	//Report
-	public float thisBirthRate = 0;
-	public float thisDeathRate = 0;
-
-	//property methods
-
-	public float CoChange {
-		get{
-			return m_coChange;
-		}
-		set{
-			m_coChange = value;		
-		}
-	}
 	
-	public float OxygenChange {
-		get{
-			return m_oxygenChange;
-		}
-		set{
-			m_oxygenChange = value;		
-		}
-	}
+	public float growthRate = 1f;
+	public Vector3 growthAmount = new Vector3 (); // vector to add to current size on growth
+	public Vector3 initialScale = new Vector3(1,1,1);
+
+
+	public string uniqueName = "";
 	
-	//3// STANDARD FUNCTIONS
-	
-	
-	//3.1// Use this for initialization
-	void Start () {
 
-		//UpdateCount ();
-		updateCount = Random.Range (0, updateRate);
-		gameObject.transform.localScale = new Vector3 (0.5f, 0.5f, 0.5f);
 
-		//Register entity to collection
-		if (!registered) {
-			Register();
-			EcosystemEntityData.entityDictionary [entityName].Count++;
-			Ecosystem.atmosphere.OxygenCalc += this.m_oxygenChange;
-			Ecosystem.atmosphere.CoCalc += this.m_coChange;
-		} else {
-			EcosystemEntityData.entityDictionary [entityName].Count++;
-			Ecosystem.atmosphere.OxygenCalc += this.m_oxygenChange;
-			Ecosystem.atmosphere.CoCalc += this.m_coChange;
-		}
-	}//End Start()--------------------------------------------------------------------------------------------------------
-	
-	//3.2//
-	// Update is called once per frame
-	void Update () {
-		/*
-		if(nearFood)	//checks if near food tag is true. If true moves entity towards target food
-		{
-			//Vector3 target = new Vector3(0,0,100f);
-			Vector3 move = Vector3.Lerp(rigidbody.position, target.position, Time.deltaTime * 1f);
-			rigidbody.MovePosition(move);
-		}
-		*/
-		//this.UpdateExtra ();
-	}//End Update()--------------------------------------------------------------------------------------------------------
 
-	public void UpdateExtra () {}
 
-	void FixedUpdate(){
-		
-		//EntityCounts();
-		if (updateCount == updateRate) 
-		{
-			updateCount = 0;
-			EcoCalculations ();	
-		}
-		updateCount++;
-
+	protected void Aging ()
+	{
+		age +=1;
 		
 	}
 
-	//4.1//
-	public void EcoCalculations()
+	protected IEnumerator Growing()
 	{
-
-		thisBirthRate = EcosystemEntityData.entityDictionary [entityName].m_birthRate;
-
-		int seed = Random.Range (1, 10 * adjustment);
-		if (chanceConvert (EcosystemEntityData.entityDictionary [entityName].m_birthRate, seed)) {
-			if (chanceConvert (EcosystemEntityData.entityDictionary [entityName].m_birthRate, seed)) {
-				Debug.Log ("Create " + entityName);
-				Create ();
-			}else{
-				Debug.Log ("Grow " + entityName);
-				Growth();
-			}
-		
-		} 
-		else if (chanceConvert (EcosystemEntityData.entityDictionary [entityName].m_deathRate, seed)) {
-				Debug.Log ("Remove " + entityName);
-				Remove ();
+		//gameObject.renderer.material.color = new Color(ageRatio, 0,0);
+		while (ageStatus != AgeStatus.OLD) {
+			gameObject.transform.localScale += growthAmount;
+			yield return new WaitForSeconds(growthRate);
 		}
-
-
+		yield return null;
+		
 	}
 
-	// weighted true or false check
-	public static bool chanceConvert(float inputChance, int seed)
+	protected IEnumerator AgeCoroutines ()
 	{
-		inputChance = inputChance * 10;
-
-		if (seed > inputChance) {
-			Debug.Log ("False ");
-			return false;
-		}else{
-			
-			Debug.Log ("True ");
-			return true;
-		}
-	}
-
 		
-	//4.2//
-	public void Register()
-	{
-		EcosystemEntityData.Data newData = new EcosystemEntityData.Data (updateRate,
-		                                                                 growthAmount,
-		                                                                 m_coChange,
-		                                                                 m_oxygenChange,
-		                                                                 oxygenReqUpper,
-		                                                                 coReqUpper,
-		                                                                 tempReq
-		                                                                 );
-		EcosystemEntityData.entityDictionary.Add (entityName, newData);
-		EcosystemEntityData.registeredCount++;
+		yield return new WaitForSeconds(matureAge);
+		ageStatus = AgeStatus.MATURE;
+		EcosystemEntityHandler.entityDictionaryMature.Add (gameObject.name, gameObject);
+		EcosystemEntityHandler.entityDictionary.Remove(gameObject.name);
+		EcosystemEntityHandler.entityMatureCount++;
 		
-		registered = true;
+		yield return new WaitForSeconds(oldAge - matureAge);
+		ageStatus = AgeStatus.OLD;
+		EcosystemEntityTreeHandler.entityDictionary.Add (gameObject.name, gameObject);
+		EcosystemEntityTreeHandler.entityDictionaryMature.Remove(gameObject.name);
+		EcosystemEntityTreeHandler.entityMatureCount--;
+		
+		yield return new WaitForSeconds(predictedDeath - oldAge);
+		ageStatus = AgeStatus.DEAD;
+		death ();
+		yield return null;
+		
+		
 	}
 	
-	//4.3//
-	public bool Create()
+	
+	
+
+	public void death()
 	{
-
-		Rigidbody newInstance;
-		Vector3 position = new Vector3 (Random.Range (-10.0F, 10.0F), 0, Random.Range (-10.0F, 10.0F));	
-		newInstance = MonoBehaviour.Instantiate (gameObject, gameObject.rigidbody.position + position, gameObject.rigidbody.rotation) as Rigidbody;
-		return true;
-
+		
+		Destroy (gameObject);
 	}
-
-	//4.4//
-	public bool Remove()
-	{
-		EcosystemEntityData.entityDictionary [entityName].Count--;
-		Ecosystem.atmosphere.OxygenCalc -= m_oxygenChange;
-		Ecosystem.atmosphere.CoCalc -= m_coChange;
-
-		MonoBehaviour.Destroy (gameObject);
-		return true;
-	}
-
-
-	//4.5//
-	public void Growth()
-	{
-		Debug.Log ("Growth");
-		gameObject.rigidbody.transform.localScale = new Vector3(transform.localScale.x * 1.1f, transform.localScale.y * 1.1f, transform.localScale.z * 1.1f);
-	}
-
 }
 

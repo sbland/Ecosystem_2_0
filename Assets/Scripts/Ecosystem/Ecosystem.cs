@@ -197,11 +197,13 @@ public class Ecosystem : MonoBehaviour {
 		string dir = saveLocation + "\\saveTest.txt";
 		string printme = "";
 
+		/*
 		foreach (var item in EcosystemEntityData.entityDictionary) {
 			printme +=  EcosystemEntityData.entityDictionary[item.Key].Count + ", ";
 			
 		}
-		printme += EcosystemEntityTreeHandler.treeCount + ", " + atmosphere.Oxygen + ", " + atmosphere.Co + "\r\n";
+		*/
+		//printme += EcosystemEntityTreeHandler.treeCount + ", " + atmosphere.Oxygen + ", " + atmosphere.Co + "\r\n";
 
 		try{File.AppendAllText(logDir, printme);}catch{
 				}
