@@ -46,7 +46,9 @@ public class EcosystemEntity : MonoBehaviour
 
 	public string uniqueName = "";
 	
+	public bool seedEnabled = true;
 
+	public EcosystemTimeManager.Season seedSeason = EcosystemTimeManager.Season.SPRING;
 
 
 
@@ -84,19 +86,19 @@ public class EcosystemEntity : MonoBehaviour
 		
 		yield return new WaitForSeconds(predictedDeath - oldAge);
 		ageStatus = AgeStatus.DEAD;
-		death ();
+		Death();
 		yield return null;
 		
 		
 	}
 	
 	
-	
-
-	public void death()
+	public void Death()
 	{
 		
 		Destroy (gameObject);
 	}
+
+
 }
 

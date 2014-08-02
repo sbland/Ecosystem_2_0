@@ -23,6 +23,8 @@ public class EcosystemEntityHandler : MonoBehaviour {
 
 	public Texture2D terrainTexture;
 
+	public bool affectedBySeasons = true;
+
 
 	// Use this for initialization
 	void Start () {
@@ -47,33 +49,26 @@ public class EcosystemEntityHandler : MonoBehaviour {
 	} //end OnDisable
 
 	void entityUpdate(){		
-		
-		//Debug.Log ("Updating entitys");
+		//Called during the ecosystemUpdate pass
 
-
-		int indexA = entityMatureCount - 1;
-		int indexB = Random.Range (0, indexA);
+		int indexTotal = entityMatureCount - 1;	//convert entity count to an array index
+		int indexTarget = Random.Range (0, indexTotal); //find an index value between 0 and the total entity count index
 
 
 		//Refresh dictionary key lists
-		entityDictKeys = new List<string>(entityDictionary.Keys);
-		entityDictMatureKeys = new List<string>(entityDictionaryMature.Keys);
+		refreshDictKeys ();
 
 
 		if (entityMatureCount > 0) {
-			string randomKey = entityDictMatureKeys [indexB];
+			string randomKey = entityDictMatureKeys [indexTarget];
 			GameObject entityFocus = entityDictionaryMature [randomKey];
 
-			if (entityFocus != null) {
-				//Debug.Log ("Updating:" + entityFocus.name);
-				EcosystemEntity entityFocusData = entityFocus.GetComponent<EcosystemEntity> ();
-
-								//entityFocus.renderer.material.color = new Color (0, 1, 0);
-
-
+			if(CheckCreateValidity (entityFocus))
+			   {
 				CreateEntity (entityFocus);	
-				
-				}
+			}
+
+
 
 		}
 
@@ -83,24 +78,22 @@ public class EcosystemEntityHandler : MonoBehaviour {
 
 	void CreateEntity(GameObject entityF){
 
-		GameObject newInstance;
-
+		GameObject newInstance; 
 		RaycastHit hit;
 
-	
-		int rayHeightAdjust = 10;
+		int rayHeightAdjust = 10; //Height above original entity to cast ray from
 
-		Vector3 position = new Vector3 (Random.Range (-spreadDistance, spreadDistance), rayHeightAdjust, Random.Range (-spreadDistance, spreadDistance));	
+		Vector3 position = new Vector3 (Random.Range (-spreadDistance, spreadDistance), rayHeightAdjust, Random.Range (-spreadDistance, spreadDistance));	//offset position of raycast origin
 
 				
 		if (Physics.Raycast (entityF.transform.position + position, -entityF.transform.up, out hit, 100)) {
 						
 						
-			position.y = -hit.distance + rayHeightAdjust;
+			position.y = -hit.distance + rayHeightAdjust; //positions the entity on the ground
 
-			Vector4 colourPixel = terrainTexture.GetPixelBilinear(hit.textureCoord.x, hit.textureCoord.y);
+			Vector4 colourPixel = terrainTexture.GetPixelBilinear(hit.textureCoord.x, hit.textureCoord.y); //get colour info of splat map correesponding to the locatiuon of the raycast hit on the terrain
 
-			if(hit.transform.tag == "Ground" && colourPixel.x > 0.01)
+			if(hit.transform.tag == "Ground" && colourPixel.x > 0.01) //checks against the splatmap that it is a valid location
 			{
 				if (entityF != null) {
 					assignId++;
@@ -115,9 +108,32 @@ public class EcosystemEntityHandler : MonoBehaviour {
 			//Debug.Log("NoHit");
 		}
 	
+				
+		
+	}
 
+	void refreshDictKeys()
+	{
+		entityDictKeys = new List<string>(entityDictionary.Keys);
+		entityDictMatureKeys = new List<string>(entityDictionaryMature.Keys);
+	}
+
+	bool CheckCreateValidity (GameObject entity)
+	{
 		
-		
+		if (entity != null) {
+
+			EcosystemEntity entityFocusData = entity.GetComponent<EcosystemEntity> ();
+						
+			if(!affectedBySeasons){
+				return true;
+			}else if(affectedBySeasons && entityFocusData.seedSeason == EcosystemTimeManager.season)
+			{
+				return true;
+			}
+
+		}
+		return false;
 	}
 
 

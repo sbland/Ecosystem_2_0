@@ -37,6 +37,10 @@ public class EcosystemEntityTree : EcosystemEntity
 		growthAmount.x += Random.Range (0, 0.001f);
 		growthAmount.y += Random.Range (0, 0.001f);
 		growthAmount.z += Random.Range (0, 0.001f);
+
+		int deathRange = predictedDeath - oldAge;
+
+		predictedDeath += Random.Range (-deathRange/3, deathRange/3);
 	
 	}
 

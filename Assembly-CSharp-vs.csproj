@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTriggerFood.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntity_SS.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemEnvironment.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemGUI.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemTimeManager.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemWeather.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\General.cs" />
      <Compile Include="Assets\Scripts\Pointer\Clickable.cs" />
