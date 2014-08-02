@@ -90,7 +90,14 @@ public class Ecosystem : MonoBehaviour {
 	//3.2//
 
 	void Update () {
-		
+		EcosystemGUI ecosystemGUI = GetComponent<EcosystemGUI> ();
+		if (Input.GetKeyDown (KeyCode.I)) {
+			
+						
+						ecosystemGUI.enabled = true;
+		} else if(Input.GetKeyUp (KeyCode.I)) {
+			ecosystemGUI.enabled = false;
+				}
 	}
 
 	void FixedUpdate () {
@@ -134,11 +141,7 @@ public class Ecosystem : MonoBehaviour {
 	}
 
 
-	void OnGUI ()
-	{
 
-
-	}
 
 
 	IEnumerator UpdateCoroutine ()
@@ -203,7 +206,8 @@ public class Ecosystem : MonoBehaviour {
 			
 		}
 		*/
-		//printme += EcosystemEntityTreeHandler.treeCount + ", " + atmosphere.Oxygen + ", " + atmosphere.Co + "\r\n";
+		//printme += EcosystemEntityTreeHandler.entityCount + ", " + atmosphere.Oxygen + ", " + atmosphere.Co + "\r\n";
+		printme += EcosystemEntityTreeHandler.entityCount +  "\r\n";
 
 		try{File.AppendAllText(logDir, printme);}catch{
 				}
