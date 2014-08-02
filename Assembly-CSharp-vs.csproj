@@ -49,6 +49,8 @@
      <Compile Include="Assets\Scripts\Ecosystem\Ecosystem.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemAtmosphere.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntity.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimal.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimalHandler.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityData.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHandler.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHuman.cs" />
