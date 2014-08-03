@@ -83,8 +83,8 @@ public class Ecosystem : MonoBehaviour {
 		Initialization ();
 		
 		try{
-			File.WriteAllText (logDir, "Trees, Humans, Cow, Oxygen, CO2 \r\n");
-		}catch{};	//Write column headers
+			File.WriteAllText (logDir, "Trees, Humans, Cow, Oxygen, CO2 \r\n");//Write column headers
+		}catch{};	
 
 	}
 
@@ -103,29 +103,7 @@ public class Ecosystem : MonoBehaviour {
 				}
 	}
 
-	void FixedUpdate () {
 
-		//EntityCounts();
-		/*if (updateCount == updateRate) 
-		{
-
-			Debug.Log ("Updating Ecosystem");
-			if (updateEcosystem != null){
-				updateEcosystem();
-			}
-
-
-			EcosystemCalculations();	
-			EcosystemConsoleLog();
-			EcosystemDataLog();
-
-
-			updateCount = 0;
-
-		}
-		updateCount++;
-	*/
-		}
 
 	void OnEnable()
 	{
@@ -186,8 +164,9 @@ public class Ecosystem : MonoBehaviour {
 	/// Ecosystems the calculations.
 	void EcosystemCalculations()
 	{
-		//atmosphere.Oxygen += atmosphere.OxygenCalc;
-		//atmosphere.Co += atmosphere.CoCalc;
+		Debug.Log ("EcoCalcs");
+		atmosphere.Oxygen += atmosphere.OxygenCalc;
+		atmosphere.Co += atmosphere.CoCalc;
 	}
 	
 

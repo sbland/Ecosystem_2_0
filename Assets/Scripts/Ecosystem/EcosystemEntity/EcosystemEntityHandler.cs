@@ -88,6 +88,8 @@ public class EcosystemEntityHandler : MonoBehaviour {
 		GameObject newInstance; 
 		RaycastHit hit;
 
+		EcosystemEntity entityFEco = entityF.GetComponent<EcosystemEntity> ();
+
 		int rayHeightAdjust = 10; //Height above original entity to cast ray from
 
 		Vector3 position = new Vector3 (Random.Range (-spreadDistance, spreadDistance), rayHeightAdjust, Random.Range (-spreadDistance, spreadDistance));	//offset position of raycast origin
@@ -107,6 +109,8 @@ public class EcosystemEntityHandler : MonoBehaviour {
 				if (entityF != null) {
 					assignId++;
 					newInstance = MonoBehaviour.Instantiate (entityF, entityF.transform.position + position, entityF.transform.rotation) as GameObject;
+
+					Ecosystem.atmosphere.OxygenCalc += entityFEco.atmosphereData.oxygenOut;
 
 					//RecordToPNG(hit.textureCoord.x, hit.textureCoord.y);
 					

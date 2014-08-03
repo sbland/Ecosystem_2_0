@@ -47,7 +47,6 @@ public class GrowthData{
 	public Vector3 growthAmount = new Vector3 (); // vector to add to current size on growth
 	public Vector3 initialScale = new Vector3(1,1,1);
 
-	
 }
 
 [System.Serializable]
@@ -58,6 +57,14 @@ public class ChildData{
 	
 }
 
+
+[System.Serializable]
+public class AtmosphereData{
+	
+	public int oxygenOut = 0;
+	public int coOut = 0;
+}
+
 public abstract class EcosystemEntity : MonoBehaviour
 {
 	public bool initialized = false;
@@ -65,6 +72,7 @@ public abstract class EcosystemEntity : MonoBehaviour
 	public AgeData ageData;
 	public GrowthData growthData;
 	public ChildData childData;
+	public AtmosphereData atmosphereData;
 
 	public EcosystemEntityHandler handler;
 
@@ -74,6 +82,7 @@ public abstract class EcosystemEntity : MonoBehaviour
 
 	public EcosystemTimeManager.Season seedSeason = EcosystemTimeManager.Season.SPRING;
 
+	public bool affectsAtmosphere = true;
 
 
 	protected void Aging ()
