@@ -1,34 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+
+
 
 public class EcosystemEntityHandler : MonoBehaviour {
 
-	public static int entityCount = 0;
+	public int entityCount = 0;
 	public int RO_entityCount = 0;
-	public static int entityMatureCount = 0;
+	public int entityMatureCount = 0;
 	public int RO_entityMatureCount = 0;
 
 	public float spreadDistance = 10;
 
-	public static Dictionary<string, GameObject> entityDictionary = new Dictionary<string, GameObject>();
-	public static List<string> entityDictKeys = new List<string>(entityDictionary.Keys);
+	public Dictionary<string, GameObject> entityDictionary = new Dictionary<string, GameObject>();
+	public List<string> entityDictKeys;// = new List<string>(entityDictionary.Keys);
 
-	public static Dictionary<string, GameObject> entityDictionaryMature = new Dictionary<string, GameObject>();
-	public static List<string> entityDictMatureKeys = new List<string>(entityDictionaryMature.Keys);
+	public Dictionary<string, GameObject> entityDictionaryMature = new Dictionary<string, GameObject>();
+	public List<string> entityDictMatureKeys;// = new List<string>(entityDictionaryMature.Keys);
 
-	public static int assignId = 1;
+	public int assignId = 1;
 
 	public Terrain terrain;
 
 	public Texture2D terrainTexture;
+	public Texture2D textureDataTest;
 
 	public bool affectedBySeasons = true;
 
 
 	// Use this for initialization
 	void Start () {
-
 
 	}
 	
@@ -62,10 +65,14 @@ public class EcosystemEntityHandler : MonoBehaviour {
 		if (entityMatureCount > 0) {
 			string randomKey = entityDictMatureKeys [indexTarget];
 			GameObject entityFocus = entityDictionaryMature [randomKey];
+			entityFocus.renderer.material.color = Color.red;
+
 
 			if(CheckCreateValidity (entityFocus))
-			   {
+			{
+				EcosystemEntity entityFocusData = entityFocus.GetComponent<EcosystemEntity> ();
 				CreateEntity (entityFocus);	
+				entityFocusData.childData.currentChildrenPerYear++;
 			}
 
 
@@ -91,6 +98,8 @@ public class EcosystemEntityHandler : MonoBehaviour {
 						
 			position.y = -hit.distance + rayHeightAdjust; //positions the entity on the ground
 
+
+
 			Vector4 colourPixel = terrainTexture.GetPixelBilinear(hit.textureCoord.x, hit.textureCoord.y); //get colour info of splat map correesponding to the locatiuon of the raycast hit on the terrain
 
 			if(hit.transform.tag == "Ground" && colourPixel.x > 0.01) //checks against the splatmap that it is a valid location
@@ -98,7 +107,8 @@ public class EcosystemEntityHandler : MonoBehaviour {
 				if (entityF != null) {
 					assignId++;
 					newInstance = MonoBehaviour.Instantiate (entityF, entityF.transform.position + position, entityF.transform.rotation) as GameObject;
-					
+
+					//RecordToPNG(hit.textureCoord.x, hit.textureCoord.y);
 					
 				} else {
 					Debug.Log("entity is NULL");
@@ -124,7 +134,11 @@ public class EcosystemEntityHandler : MonoBehaviour {
 		if (entity != null) {
 
 			EcosystemEntity entityFocusData = entity.GetComponent<EcosystemEntity> ();
-						
+
+			if(entityFocusData.childData.currentChildrenPerYear >= entityFocusData.childData.maxChildrenPerYear)
+			{
+				return false;
+			}
 			if(!affectedBySeasons){
 				return true;
 			}else if(affectedBySeasons && entityFocusData.seedSeason == EcosystemTimeManager.season)
@@ -136,6 +150,18 @@ public class EcosystemEntityHandler : MonoBehaviour {
 		return false;
 	}
 
+	void RecordToPNG(float x, float y)
+	{
+		Vector4 changeColour = new Vector4 (255, 255, 0, 1);
+		float pixelX = textureDataTest.width * x;
+		float pixelY = textureDataTest.height *  y;
+		textureDataTest.SetPixel((int)pixelX, (int)pixelY, Color.red);
+		
+		//textureDataTest.Apply();
+		
+		byte[] bytes = textureDataTest.EncodeToPNG ();
+		File.WriteAllBytes (System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "/Ecosystem/" + "TestImage" + ".png", bytes);
+	}
 
 
 }

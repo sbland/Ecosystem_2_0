@@ -58,7 +58,10 @@ public class Ecosystem : MonoBehaviour {
 	//2.4// Objects
 	public static EcosystemAtmosphere atmosphere;
 	public static EcosystemEnvironment environment;
-
+	public static EcosystemEntityHandler treeHandler;
+	public static EcosystemEntityHandler humanHandler;
+	public static EcosystemEntityHandler animalHandler;
+	
 	//2.5// Delegates
 	
 	public delegate void UpdateEcosystem ();
@@ -165,8 +168,12 @@ public class Ecosystem : MonoBehaviour {
 	{
 		atmosphere = GetComponent<EcosystemAtmosphere> ();
 		environment = GetComponent<EcosystemEnvironment> ();
+		treeHandler = GetComponent<EcosystemEntityTreeHandler>();
+		humanHandler = GetComponent<EcosystemEntityHumanHandler>();
+		animalHandler = GetComponent<EcosystemEntityAnimalHandler>();
 
-
+		
+		
 
 		logDir = saveLocation + "\\saveTest_" + System.DateTime.Now.ToString("HHmm_d_M_yy") + ".txt";
 	}
@@ -207,7 +214,7 @@ public class Ecosystem : MonoBehaviour {
 		}
 		*/
 		//printme += EcosystemEntityTreeHandler.entityCount + ", " + atmosphere.Oxygen + ", " + atmosphere.Co + "\r\n";
-		printme += EcosystemEntityTreeHandler.entityCount +  "\r\n";
+		printme += treeHandler.entityCount +  "\r\n";
 
 		try{File.AppendAllText(logDir, printme);}catch{
 				}

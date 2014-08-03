@@ -27,22 +27,46 @@
 using UnityEngine;
 using System.Collections;
 
-public class EcosystemEntity : MonoBehaviour
-{
-	public int age = 0; // in Seconds
+[System.Serializable]
+public class AgeData{
 
+	public int age = 0; // in Seconds
 	public enum AgeStatus {DEFAULT,YOUNG, MATURE, OLD, DEAD};
 	public AgeStatus ageStatus = AgeStatus.YOUNG;
-
+	
 	public int matureAge = 5; //age that reproduction is allowed
 	public int oldAge = 7; // age that reproduction is stopped
 	public int predictedDeath = 10;// int Seconds age that death is predicted
 
+}
+
+[System.Serializable]
+public class GrowthData{
 	
 	public float growthRate = 1f;
 	public Vector3 growthAmount = new Vector3 (); // vector to add to current size on growth
 	public Vector3 initialScale = new Vector3(1,1,1);
 
+	
+}
+
+[System.Serializable]
+public class ChildData{
+	
+	public int maxChildrenPerYear = 5;
+	public int currentChildrenPerYear = 0;
+	
+}
+
+public abstract class EcosystemEntity : MonoBehaviour
+{
+	public bool initialized = false;
+
+	public AgeData ageData;
+	public GrowthData growthData;
+	public ChildData childData;
+
+	public EcosystemEntityHandler handler;
 
 	public string uniqueName = "";
 	
@@ -54,16 +78,16 @@ public class EcosystemEntity : MonoBehaviour
 
 	protected void Aging ()
 	{
-		age +=1;
+		ageData.age +=1;
 		
 	}
 
-	protected IEnumerator Growing()
+	protected virtual IEnumerator Growing()
 	{
-		//gameObject.renderer.material.color = new Color(ageRatio, 0,0);
-		while (ageStatus != AgeStatus.OLD) {
-			gameObject.transform.localScale += growthAmount;
-			yield return new WaitForSeconds(growthRate);
+
+		while (ageData.ageStatus != AgeData.AgeStatus.OLD) {
+			gameObject.transform.localScale += growthData.growthAmount;
+			yield return new WaitForSeconds(growthData.growthRate);
 		}
 		yield return null;
 		
@@ -71,21 +95,23 @@ public class EcosystemEntity : MonoBehaviour
 
 	protected IEnumerator AgeCoroutines ()
 	{
+
+		yield return new WaitForSeconds(ageData.matureAge);
+		ageData.ageStatus = AgeData.AgeStatus.MATURE;
+			
+
+		handler.entityDictionaryMature.Add (gameObject.name, gameObject);
+		handler.entityDictionary.Remove(gameObject.name);
+		handler.entityMatureCount++;
 		
-		yield return new WaitForSeconds(matureAge);
-		ageStatus = AgeStatus.MATURE;
-		EcosystemEntityHandler.entityDictionaryMature.Add (gameObject.name, gameObject);
-		EcosystemEntityHandler.entityDictionary.Remove(gameObject.name);
-		EcosystemEntityHandler.entityMatureCount++;
+		yield return new WaitForSeconds(ageData.oldAge - ageData.matureAge);
+		ageData.ageStatus = AgeData.AgeStatus.OLD;
+		handler.entityDictionary.Add (gameObject.name, gameObject);
+		handler.entityDictionaryMature.Remove(gameObject.name);
+		handler.entityMatureCount--;
 		
-		yield return new WaitForSeconds(oldAge - matureAge);
-		ageStatus = AgeStatus.OLD;
-		EcosystemEntityHandler.entityDictionary.Add (gameObject.name, gameObject);
-		EcosystemEntityHandler.entityDictionaryMature.Remove(gameObject.name);
-		EcosystemEntityHandler.entityMatureCount--;
-		
-		yield return new WaitForSeconds(predictedDeath - oldAge);
-		ageStatus = AgeStatus.DEAD;
+		yield return new WaitForSeconds(ageData.predictedDeath - ageData.oldAge);
+		ageData.ageStatus = AgeData.AgeStatus.DEAD;
 		Death();
 		yield return null;
 		
@@ -95,10 +121,76 @@ public class EcosystemEntity : MonoBehaviour
 	
 	public void Death()
 	{
-		
 		Destroy (gameObject);
 	}
 
+	void Awake()
+	{
+		//Reset
+		gameObject.transform.localScale = growthData.initialScale;
+		ageData.age = 0;
+		ageData.ageStatus = AgeData.AgeStatus.YOUNG;
+		
+		
+		//start updaters
+		InvokeRepeating ("Aging", 1, 1);
+		
+		StartCoroutine (AgeCoroutines ());
+		StartCoroutine (Growing ());
+		
+		
+		//Randomize
+		growthData.growthAmount.x += Random.Range (0, 0.001f);
+		growthData.growthAmount.y += Random.Range (0, 0.001f);
+		growthData.growthAmount.z += Random.Range (0, 0.001f);
+
+		int deathRange = ageData.predictedDeath - ageData.oldAge;
+		ageData.predictedDeath += Random.Range (-deathRange/3, deathRange/3);
+		
+	}
+
+	void Start ()
+	{
+		if (!initialized) {
+			OnEnableExtended ();
+			initialized = true;
+		}
+	}
+
+
+	void OnEnable ()
+	{
+		if (initialized) {
+			OnEnableExtended ();
+		}
+		
+	}
+	
+	void OnDisable ()
+
+	{
+		Ecosystem.updateEcosystem -= EntityUpdate;
+		
+		handler.entityCount --;
+		
+		
+	}
+
+	public void OnEnableExtended ()
+	{
+		SetHandler ();
+		name = uniqueName + handler.assignId;
+		Ecosystem.updateEcosystem += EntityUpdate;
+		handler.entityDictionary.Add (gameObject.name, gameObject);
+		handler.entityCount ++;
+	}
+
+	
+	public abstract void EntityUpdate ();
+
+	public abstract void SetHandler();
+
 
 }
+
 

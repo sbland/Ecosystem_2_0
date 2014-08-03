@@ -1,14 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTree.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntity.cs">
     <Files>
-      <File FileName="Assets\Scripts\Ecosystem\Ecosystem.cs" Line="210" Column="55" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTree.cs" Line="17" Column="1" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntity.cs" Line="39" Column="32" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHandler.cs" Line="66" Column="8" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTreeHandler.cs" Line="5" Column="40" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemTimeManager.cs" Line="4" Column="34" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemGUI.cs" Line="12" Column="95" />
+      <File FileName="Assets\Scripts\Ecosystem\Ecosystem.cs" Line="173" Column="19" />
+      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTree.cs" Line="16" Column="3" />
+      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntity.cs" Line="54" Column="24" />
+      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHandler.cs" Line="140" Column="12" />
+      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTreeHandler.cs" Line="5" Column="65" />
+      <File FileName="e:\Projects\Main\Ecosystem\Unity\Ecosystem_2_0\Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHuman.cs" Line="14" Column="35" />
+      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHumanHandler.cs" Line="4" Column="43" />
+      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimalHandler.cs" Line="7" Column="1" />
+      <File FileName="e:\Projects\Main\Ecosystem\Unity\Ecosystem_2_0\Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimal.cs" Line="44" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
