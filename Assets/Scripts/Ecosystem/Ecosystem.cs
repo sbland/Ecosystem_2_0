@@ -135,7 +135,7 @@ public class Ecosystem : MonoBehaviour {
 			}
 			yield return new WaitForSeconds(updateRate);
 		}
-		yield return null;
+		yield break;
 	}
 
 
@@ -164,7 +164,7 @@ public class Ecosystem : MonoBehaviour {
 	/// Ecosystems the calculations.
 	void EcosystemCalculations()
 	{
-		Debug.Log ("EcoCalcs");
+		//Debug.Log ("EcoCalcs");
 		atmosphere.Oxygen += atmosphere.OxygenCalc;
 		atmosphere.Co += atmosphere.CoCalc;
 	}

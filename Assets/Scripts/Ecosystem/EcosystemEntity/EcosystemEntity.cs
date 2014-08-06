@@ -75,13 +75,9 @@ public abstract class EcosystemEntity : MonoBehaviour
 	public AtmosphereData atmosphereData;
 
 	public EcosystemEntityHandler handler;
-
 	public string uniqueName = "";
-	
 	public bool seedEnabled = true;
-
 	public EcosystemTimeManager.Season seedSeason = EcosystemTimeManager.Season.SPRING;
-
 	public bool affectsAtmosphere = true;
 
 
@@ -155,7 +151,8 @@ public abstract class EcosystemEntity : MonoBehaviour
 
 		int deathRange = ageData.predictedDeath - ageData.oldAge;
 		ageData.predictedDeath += Random.Range (-deathRange/3, deathRange/3);
-		
+
+		ChildAwake ();
 	}
 
 	void Start ()
@@ -164,6 +161,7 @@ public abstract class EcosystemEntity : MonoBehaviour
 			OnEnableExtended ();
 			initialized = true;
 		}
+		ChildStart ();
 	}
 
 
@@ -172,6 +170,8 @@ public abstract class EcosystemEntity : MonoBehaviour
 		if (initialized) {
 			OnEnableExtended ();
 		}
+
+		ChildEnable ();
 		
 	}
 	
@@ -182,7 +182,17 @@ public abstract class EcosystemEntity : MonoBehaviour
 		
 		handler.entityCount --;
 		
-		
+		ChildDisable ();
+	}
+
+	void Update()
+	{
+		ChildUpdate ();
+	}
+
+	void FixedUpdate()
+	{
+		ChildFixedUpdate ();
 	}
 
 	public void OnEnableExtended ()
@@ -196,8 +206,14 @@ public abstract class EcosystemEntity : MonoBehaviour
 
 	
 	public abstract void EntityUpdate ();
-
 	public abstract void SetHandler();
+
+	public virtual void ChildStart(){}
+	public virtual void ChildAwake(){}
+	public virtual void ChildEnable(){}
+	public virtual void ChildDisable(){}
+	public virtual void ChildUpdate(){}
+	public virtual void ChildFixedUpdate(){}
 
 
 }
