@@ -1,18 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Ecosystem\Ecosystem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntity.cs">
     <Files>
-      <File FileName="Assets\Scripts\Ecosystem\Ecosystem.cs" Line="173" Column="23" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTree.cs" Line="16" Column="3" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntity.cs" Line="75" Column="25" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHandler.cs" Line="113" Column="77" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTreeHandler.cs" Line="1" Column="1" />
-      <File FileName="e:\Projects\Main\Ecosystem\Unity\Ecosystem_2_0\Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHuman.cs" Line="14" Column="35" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHumanHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimalHandler.cs" Line="1" Column="1" />
-      <File FileName="e:\Projects\Main\Ecosystem\Unity\Ecosystem_2_0\Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimal.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemAtmosphere.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Ecosystem\EcosystemGUI.cs" Line="16" Column="49" />
+      <File FileName="Assets\Scripts\Ecosystem\Ecosystem.cs" Line="120" Column="23" />
+      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntity.cs" Line="69" Column="2" />
+      <File FileName="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimal.cs" Line="17" Column="23" />
+      <File FileName="Assets\Scripts\Ecosystem\SaveLoadManager.cs" Line="44" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

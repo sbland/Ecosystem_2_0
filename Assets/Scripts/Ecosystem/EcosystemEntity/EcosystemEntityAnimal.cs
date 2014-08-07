@@ -39,5 +39,10 @@ public class EcosystemEntityAnimal : EcosystemEntity
 	{
 		handler = Ecosystem.animalHandler;
 	}
+
+	public override void ChildStart()
+	{
+		Debug.Log ("Test Child Start");
+	}
 }
 
