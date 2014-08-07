@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class ChildClassBData : ParentClassData
+public class ParentClassData : MonoBehaviour
 {
-	public int entityCount = 0;
+	public int testInt = 2;
 		// Use this for initialization
 		void Start ()
 		{
-//			ControllerClass.ChildClasses.Add("ChildClassBData", new ChildClassBData());
+	
 		}
 	
 		// Update is called once per frame
