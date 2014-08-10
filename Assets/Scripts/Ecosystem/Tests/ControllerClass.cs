@@ -13,11 +13,11 @@ public class ControllerClass : MonoBehaviour
 	public delegate void AddToDictionary <T> (T classIn);
 
 		// Use this for initialization
-		void Start ()
+		void Awake ()
 		{
 
-			//childA = GetComponent<ChildClassAData> ();
-			//childB = GetComponent<ChildClassBData> ();
+			childA = GetComponent<ChildClassAData> ();
+			childB = GetComponent<ChildClassBData> ();
 
 		//ChildClasses["ChildClassAData"] = GetComponent<>();
 

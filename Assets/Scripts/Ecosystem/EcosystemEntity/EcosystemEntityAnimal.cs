@@ -42,7 +42,7 @@ public class EcosystemEntityAnimal : EcosystemEntity
 
 	public override void ChildStart()
 	{
-		Debug.Log ("Test Child Start");
+
 	}
 }
 

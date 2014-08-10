@@ -193,7 +193,7 @@ public class Ecosystem : MonoBehaviour {
 		}
 		*/
 		//printme += EcosystemEntityTreeHandler.entityCount + ", " + atmosphere.Oxygen + ", " + atmosphere.Co + "\r\n";
-		printme += treeHandler.entityCount +  "\r\n";
+		printme += treeHandler.countData.entityCount +  "\r\n";
 
 		try{File.AppendAllText(logDir, printme);}catch{
 				}

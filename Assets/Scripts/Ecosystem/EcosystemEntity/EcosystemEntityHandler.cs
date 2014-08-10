@@ -4,41 +4,60 @@ using System.Collections.Generic;
 using System.IO;
 
 
-
-public class EcosystemEntityHandler : MonoBehaviour {
-
+[System.Serializable]
+public class CountData
+{
 	public int entityCount = 0;
-	public int RO_entityCount = 0;
 	public int entityMatureCount = 0;
-	public int RO_entityMatureCount = 0;
+}
 
-	public float spreadDistance = 10;
-
+[System.Serializable]
+public class DictionaryData
+{
 	public Dictionary<string, GameObject> entityDictionary = new Dictionary<string, GameObject>();
 	public List<string> entityDictKeys;// = new List<string>(entityDictionary.Keys);
-
+	
 	public Dictionary<string, GameObject> entityDictionaryMature = new Dictionary<string, GameObject>();
 	public List<string> entityDictMatureKeys;// = new List<string>(entityDictionaryMature.Keys);
+}
 
-	public int assignId = 1;
-
+[System.Serializable]
+public class TerrainData
+{
 	public Terrain terrain;
-
+	
 	public Texture2D terrainTexture;
 	public Texture2D textureDataTest;
 
+}
+
+
+
+public class EcosystemEntityHandler : MonoBehaviour {
+
+	public CountData countData;
+	public DictionaryData dictionaryData;
+	public TerrainData terrainData;
+
+
+	public float spreadDistance = 10;
+
+	public int assignId = 1;
+
 	public bool affectedBySeasons = true;
 
+	public bool usePool = false;
+	public EntityPool pool;
+	public int pooledAmount = 20;
 
 	// Use this for initialization
-	void Start () {
-
+	void Awake () {
+		pool = new EntityPool ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		RO_entityCount = entityCount;
-		RO_entityMatureCount = entityMatureCount;
+
 
 	}
 
@@ -54,7 +73,7 @@ public class EcosystemEntityHandler : MonoBehaviour {
 	void entityUpdate(){		
 		//Called during the ecosystemUpdate pass
 
-		int indexTotal = entityMatureCount - 1;	//convert entity count to an array index
+		int indexTotal = countData.entityMatureCount - 1;	//convert entity count to an array index
 		int indexTarget = Random.Range (0, indexTotal); //find an index value between 0 and the total entity count index
 
 
@@ -62,17 +81,17 @@ public class EcosystemEntityHandler : MonoBehaviour {
 		refreshDictKeys ();
 
 
-		if (entityMatureCount > 0) {
-			string randomKey = entityDictMatureKeys [indexTarget];
-			GameObject entityFocus = entityDictionaryMature [randomKey];
-			entityFocus.renderer.material.color = Color.red;
+		if (countData.entityMatureCount > 0) {
+			string randomKey = dictionaryData.entityDictMatureKeys [indexTarget];
+			GameObject entityFocus = dictionaryData.entityDictionaryMature [randomKey];
+			//entityFocus.renderer.material.color = Color.red;
 
 
 			if(CheckCreateValidity (entityFocus))
 			{
-				EcosystemEntity entityFocusData = entityFocus.GetComponent<EcosystemEntity> ();
+				EcosystemEntity entityFocusComponent = entityFocus.GetComponent<EcosystemEntity> ();
 				CreateEntity (entityFocus);	
-				entityFocusData.childData.currentChildrenPerYear++;
+				entityFocusComponent.childData.currentChildrenPerYear++;
 			}
 
 
@@ -102,7 +121,7 @@ public class EcosystemEntityHandler : MonoBehaviour {
 
 
 
-			Vector4 colourPixel = terrainTexture.GetPixelBilinear(hit.textureCoord.x, hit.textureCoord.y); //get colour info of splat map correesponding to the locatiuon of the raycast hit on the terrain
+			Vector4 colourPixel = terrainData.terrainTexture.GetPixelBilinear(hit.textureCoord.x, hit.textureCoord.y); //get colour info of splat map correesponding to the locatiuon of the raycast hit on the terrain
 
 			if(hit.transform.tag == "Ground" && colourPixel.x > 0.01) //checks against the splatmap that it is a valid location
 			{
@@ -128,8 +147,8 @@ public class EcosystemEntityHandler : MonoBehaviour {
 
 	void refreshDictKeys()
 	{
-		entityDictKeys = new List<string>(entityDictionary.Keys);
-		entityDictMatureKeys = new List<string>(entityDictionaryMature.Keys);
+		dictionaryData.entityDictKeys = new List<string>(dictionaryData.entityDictionary.Keys);
+		dictionaryData.entityDictMatureKeys = new List<string>(dictionaryData.entityDictionaryMature.Keys);
 	}
 
 	bool CheckCreateValidity (GameObject entity)
@@ -157,13 +176,13 @@ public class EcosystemEntityHandler : MonoBehaviour {
 	void RecordToPNG(float x, float y)
 	{
 		Vector4 changeColour = new Vector4 (255, 255, 0, 1);
-		float pixelX = textureDataTest.width * x;
-		float pixelY = textureDataTest.height *  y;
-		textureDataTest.SetPixel((int)pixelX, (int)pixelY, Color.red);
+		float pixelX = terrainData.textureDataTest.width * x;
+		float pixelY = terrainData.textureDataTest.height *  y;
+		terrainData.textureDataTest.SetPixel((int)pixelX, (int)pixelY, Color.red);
 		
 		//textureDataTest.Apply();
 		
-		byte[] bytes = textureDataTest.EncodeToPNG ();
+		byte[] bytes = terrainData.textureDataTest.EncodeToPNG ();
 		File.WriteAllBytes (System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments) + "/Ecosystem/" + "TestImage" + ".png", bytes);
 	}
 

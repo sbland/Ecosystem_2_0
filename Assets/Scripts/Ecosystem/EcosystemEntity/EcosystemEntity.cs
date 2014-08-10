@@ -26,6 +26,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class AgeData{
@@ -46,6 +47,7 @@ public class GrowthData{
 	public float growthRate = 1f;
 	public Vector3 growthAmount = new Vector3 (); // vector to add to current size on growth
 	public Vector3 initialScale = new Vector3(1,1,1);
+	public Vector3 randomizeGrowth = new Vector3(0,0,0);
 
 }
 
@@ -74,11 +76,12 @@ public abstract class EcosystemEntity : MonoBehaviour
 	public ChildData childData;
 	public AtmosphereData atmosphereData;
 
-	public EcosystemEntityHandler handler;
+	protected EcosystemEntityHandler handler;
 	public string uniqueName = "";
 	public bool seedEnabled = true;
 	public EcosystemTimeManager.Season seedSeason = EcosystemTimeManager.Season.SPRING;
 	public bool affectsAtmosphere = true;
+
 
 
 	protected void Aging ()
@@ -105,15 +108,15 @@ public abstract class EcosystemEntity : MonoBehaviour
 		ageData.ageStatus = AgeData.AgeStatus.MATURE;
 			
 
-		handler.entityDictionaryMature.Add (gameObject.name, gameObject);
-		handler.entityDictionary.Remove(gameObject.name);
-		handler.entityMatureCount++;
+		handler.dictionaryData.entityDictionaryMature.Add (gameObject.name, gameObject);
+		handler.dictionaryData.entityDictionary.Remove(gameObject.name);
+		handler.countData.entityMatureCount++;
 		
 		yield return new WaitForSeconds(ageData.oldAge - ageData.matureAge);
 		ageData.ageStatus = AgeData.AgeStatus.OLD;
-		handler.entityDictionary.Add (gameObject.name, gameObject);
-		handler.entityDictionaryMature.Remove(gameObject.name);
-		handler.entityMatureCount--;
+		handler.dictionaryData.entityDictionary.Add (gameObject.name, gameObject);
+		handler.dictionaryData.entityDictionaryMature.Remove(gameObject.name);
+		handler.countData.entityMatureCount--;
 		
 		yield return new WaitForSeconds(ageData.predictedDeath - ageData.oldAge);
 		ageData.ageStatus = AgeData.AgeStatus.DEAD;
@@ -132,25 +135,8 @@ public abstract class EcosystemEntity : MonoBehaviour
 	void Awake()
 	{
 		//Reset
-		gameObject.transform.localScale = growthData.initialScale;
-		ageData.age = 0;
-		ageData.ageStatus = AgeData.AgeStatus.YOUNG;
-		
-		
-		//start updaters
-		InvokeRepeating ("Aging", 1, 1);
-		
-		StartCoroutine (AgeCoroutines ());
-		StartCoroutine (Growing ());
-		
-		
-		//Randomize
-		growthData.growthAmount.x += Random.Range (0, 0.001f);
-		growthData.growthAmount.y += Random.Range (0, 0.001f);
-		growthData.growthAmount.z += Random.Range (0, 0.001f);
-
-		int deathRange = ageData.predictedDeath - ageData.oldAge;
-		ageData.predictedDeath += Random.Range (-deathRange/3, deathRange/3);
+		Reset ();
+		RandomizeDNA ();
 
 		ChildAwake ();
 	}
@@ -159,8 +145,20 @@ public abstract class EcosystemEntity : MonoBehaviour
 	{
 		if (!initialized) {
 			OnEnableExtended ();
+
+			if(handler.usePool)
+			{
+				handler.pool.pooledObjects = new List<GameObject> ();
+				for (int i = 0; i < handler.pooledAmount; i++) {
+					handler.pool.AddToPool(gameObject);
+				}
+			}
+
 			initialized = true;
+
 		}
+
+
 		ChildStart ();
 	}
 
@@ -178,10 +176,15 @@ public abstract class EcosystemEntity : MonoBehaviour
 	void OnDisable ()
 
 	{
+		if (initialized) {
+
+			handler.countData.entityCount --;
+		}
 		Ecosystem.updateEcosystem -= EntityUpdate;
-		
-		handler.entityCount --;
-		
+				
+		CancelInvoke("Aging");
+		StopCoroutine (AgeCoroutines ());
+		StopCoroutine (Growing ());
 		ChildDisable ();
 	}
 
@@ -200,8 +203,30 @@ public abstract class EcosystemEntity : MonoBehaviour
 		SetHandler ();
 		name = uniqueName + handler.assignId;
 		Ecosystem.updateEcosystem += EntityUpdate;
-		handler.entityDictionary.Add (gameObject.name, gameObject);
-		handler.entityCount ++;
+		handler.dictionaryData.entityDictionary.Add (gameObject.name, gameObject);
+		handler.countData.entityCount ++;
+
+		//start updaters
+		InvokeRepeating ("Aging", 1, 1);
+		StartCoroutine (AgeCoroutines ());
+		StartCoroutine (Growing ());
+	}
+
+	void Reset()
+	{
+		gameObject.transform.localScale = growthData.initialScale;
+		ageData.age = 0;
+		ageData.ageStatus = AgeData.AgeStatus.YOUNG;
+	}
+
+	void RandomizeDNA()
+	{
+		//Randomize
+		growthData.growthAmount += growthData.randomizeGrowth;
+		
+		int deathRange = ageData.predictedDeath - ageData.oldAge;
+		ageData.predictedDeath += Random.Range (-deathRange/3, deathRange/3);
+
 	}
 
 	

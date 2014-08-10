@@ -4,16 +4,28 @@ using System.Collections;
 public class ChildClassBData : ParentClassData
 {
 	public int entityCount = 0;
-		// Use this for initialization
-		void Start ()
-		{
-//			ControllerClass.ChildClasses.Add("ChildClassBData", new ChildClassBData());
-		}
+	public EntityPool pool;
+	// Use this for initialization
 	
-		// Update is called once per frame
-		void Update ()
-		{
+	public ChildClassBData childClassBData;
+	void Awake ()
+	{
+		pool = new EntityPool ();
+		//ControllerClass.AddToDictionary<ChildClassAData> addto;
+		//ControllerClass.ChildClasses.Add("ChildClassBData", childClassBData);
+	}
 	
+	// Update is called once per frame
+	void Update ()
+	{
+		if(Input.GetKeyDown(KeyCode.B))
+		{
+			pool.Spawn();
 		}
+		if(Input.GetKeyDown(KeyCode.N))
+		{
+			pool.Die();
+		}
+	}
 }
 
