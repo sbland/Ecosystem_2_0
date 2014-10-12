@@ -7,7 +7,12 @@ public class ClickTest : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-	
+			if (gameObject.GetComponent<Clickable> ()) {
+			Clickable clickable = GetComponent<Clickable>();
+			clickable.onPointerClicked += ClickTestHit;
+				
+
+				}
 		}
 	
 		// Update is called once per frame
@@ -15,5 +20,11 @@ public class ClickTest : MonoBehaviour
 		{
 	
 		}
+		
+	public void ClickTestHit()
+	{
+		//gameObject.renderer.material.color = Color.blue;
+	}
+
 }
 

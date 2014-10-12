@@ -86,7 +86,7 @@ public class Ecosystem : MonoBehaviour {
 			File.WriteAllText (logDir, "Trees, Humans, Cow, Oxygen, CO2 \r\n");//Write column headers
 		}catch{};	
 
-	}
+	}//End Awake()--------------------------------------------------------------------------------------------------------
 
 
 	
@@ -101,7 +101,7 @@ public class Ecosystem : MonoBehaviour {
 		} else if(Input.GetKeyUp (KeyCode.I)) {
 			ecosystemGUI.enabled = false;
 				}
-	}
+	}//End Update()--------------------------------------------------------------------------------------------------------
 
 
 
@@ -111,7 +111,7 @@ public class Ecosystem : MonoBehaviour {
 		updateEcosystem += EcosystemCalculations;	
 		updateEcosystem += EcosystemConsoleLog;
 		updateEcosystem += EcosystemDataLog;
-	}
+	}//End OnEnable()--------------------------------------------------------------------------------------------------------
 
 	void OnDisable()
 	{
@@ -119,7 +119,7 @@ public class Ecosystem : MonoBehaviour {
 		updateEcosystem -= EcosystemCalculations;	
 		updateEcosystem -= EcosystemConsoleLog;
 		updateEcosystem -= EcosystemDataLog;
-	}
+	}//End OnDisable()--------------------------------------------------------------------------------------------------------
 
 
 
@@ -136,7 +136,7 @@ public class Ecosystem : MonoBehaviour {
 			yield return new WaitForSeconds(updateRate);
 		}
 		yield break;
-	}
+	}//End UpdateCoroutine()--------------------------------------------------------------------------------------------------------
 
 
 
@@ -150,11 +150,8 @@ public class Ecosystem : MonoBehaviour {
 		humanHandler = GetComponent<EcosystemEntityHumanHandler>();
 		animalHandler = GetComponent<EcosystemEntityAnimalHandler>();
 
-		
-		
-
 		logDir = saveLocation + "\\saveTest_" + System.DateTime.Now.ToString("HHmm_d_M_yy") + ".txt";
-	}
+	}//End Update()--------------------------------------------------------------------------------------------------------
 
 	//End Initialization()--------------------------------------------------------------------------------------------------------
 	
@@ -164,9 +161,8 @@ public class Ecosystem : MonoBehaviour {
 	/// Ecosystems the calculations.
 	void EcosystemCalculations()
 	{
-		//Debug.Log ("EcoCalcs");
-		atmosphere.Oxygen += atmosphere.OxygenCalc;
-		atmosphere.Co += atmosphere.CoCalc;
+		Debug.Log ("EcoCalcs");
+		atmosphere.AtmosphereCalcs ();
 	}
 	
 
@@ -184,7 +180,7 @@ public class Ecosystem : MonoBehaviour {
 
 		//File Write Test
 		string dir = saveLocation + "\\saveTest.txt";
-		string printme = "";
+		//string printme = "";
 
 		/*
 		foreach (var item in EcosystemEntityData.entityDictionary) {
@@ -193,16 +189,16 @@ public class Ecosystem : MonoBehaviour {
 		}
 		*/
 		//printme += EcosystemEntityTreeHandler.entityCount + ", " + atmosphere.Oxygen + ", " + atmosphere.Co + "\r\n";
-		printme += treeHandler.countData.entityCount +  "\r\n";
+		//printme += treeHandler.countData.entityCount +  "\r\n";
+		//
+		//try{File.AppendAllText(logDir, printme);}catch{
+		//		}
 
-		try{File.AppendAllText(logDir, printme);}catch{
-				}
-
-		//string[] printme = {EcosystemEntityData.Trees.Count + "", ", " + EcosystemEntityData.Humans.Count, ", "+ EcosystemEntityData.Cows.Count, ", " + atmosphere.Oxygen, ", " + atmosphere.Co + "\r\n"};
-		//for (int i = 0; i<printme.Length; i++) 
-		//{
-		//	File.AppendAllText(logDir, printme[i]);
-		//}
+		string[] printme = {treeHandler.countData.entityCount + "", ", " + humanHandler.countData.entityCount, ", "+ animalHandler.countData.entityCount, ", " + atmosphere.Oxygen, ", " + atmosphere.Co + "\r\n"};
+		for (int i = 0; i<printme.Length; i++) 
+		{
+			File.AppendAllText(logDir, printme[i]);
+		}
 
 	}
 }

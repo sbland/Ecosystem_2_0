@@ -4,7 +4,12 @@ using System.Collections;
 public class EcosystemWeather : MonoBehaviour
 {
 	private GameObject cloudSpawned;
+
+	public enum WeatherType {CLEAR,CLOUDY,RAINLIGHT,RAINHEAVY}
+	WeatherType currentWeather = WeatherType.CLEAR;
+		 
 	public GameObject cloudResource;
+
 
 	// Use this for initialization
 	void Start ()

@@ -15,6 +15,8 @@ public class EcosystemGUI : MonoBehaviour
 
 		GUI.TextArea (new Rect (20, 160, 200, 20), "Co: " + Ecosystem.atmosphere.Co);
 		GUI.TextArea (new Rect (20, 180, 200, 20), "Oxygen: " + Ecosystem.atmosphere.Oxygen);
+		GUI.TextArea (new Rect (20, 200, 200, 20), "CoOut: " + Ecosystem.atmosphere.CoCalc);
+		GUI.TextArea (new Rect (20, 220, 200, 20), "OxygenOut: " + Ecosystem.atmosphere.OxygenCalc);
 
 
 

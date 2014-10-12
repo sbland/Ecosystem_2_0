@@ -65,7 +65,12 @@ public class AtmosphereData{
 	
 	public int oxygenOut = 0;
 	public int coOut = 0;
+
+	public int oxygenRequirement = 0;
+	public int coRequirement = 0;
 }
+
+/*---------------------------------------------------------------------------------------*/
 
 public abstract class EcosystemEntity : MonoBehaviour
 {
@@ -186,6 +191,10 @@ public abstract class EcosystemEntity : MonoBehaviour
 		StopCoroutine (AgeCoroutines ());
 		StopCoroutine (Growing ());
 		ChildDisable ();
+
+		//Remove from atmosphere Data
+		Ecosystem.atmosphere.OxygenCalc -= atmosphereData.oxygenOut;
+		Ecosystem.atmosphere.CoCalc -= atmosphereData.coOut;
 	}
 
 	void Update()
@@ -200,16 +209,21 @@ public abstract class EcosystemEntity : MonoBehaviour
 
 	public void OnEnableExtended ()
 	{
-		SetHandler ();
-		name = uniqueName + handler.assignId;
+		SetHandler (); //Child classes set the handler class
+		name = uniqueName + handler.assignId; //give entity a unique name
 		Ecosystem.updateEcosystem += EntityUpdate;
-		handler.dictionaryData.entityDictionary.Add (gameObject.name, gameObject);
+		handler.dictionaryData.entityDictionary.Add (gameObject.name, gameObject);//add the entity to the list of entities in the class handler
 		handler.countData.entityCount ++;
 
 		//start updaters
 		InvokeRepeating ("Aging", 1, 1);
 		StartCoroutine (AgeCoroutines ());
 		StartCoroutine (Growing ());
+
+		//Add to Atmosphere Data
+		Ecosystem.atmosphere.OxygenCalc += atmosphereData.oxygenOut;
+		Ecosystem.atmosphere.CoCalc += atmosphereData.coOut;
+
 	}
 
 	void Reset()

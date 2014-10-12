@@ -4,6 +4,7 @@ using System.Collections;
 public class PointerSettings : MonoBehaviour {
 
 	public bool useTouchOSC = false;
+	public bool liveUpdate = false;
 
 	// Use this for initialization
 	void Start () {

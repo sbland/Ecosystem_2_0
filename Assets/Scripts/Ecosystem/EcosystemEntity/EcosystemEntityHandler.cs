@@ -35,12 +35,16 @@ public class TerrainData
 
 public class EcosystemEntityHandler : MonoBehaviour {
 
+	//Initialize grouped Variables
 	public CountData countData;
 	public DictionaryData dictionaryData;
 	public TerrainData terrainData;
 
+	//Enums
+	public enum Action {NONE, DEATH, BIRTH};  //Action
 
-	public float spreadDistance = 10;
+
+	public float spreadDistance = 10;	//spread distance when spawning a new entity
 
 	public int assignId = 1;
 
@@ -87,11 +91,18 @@ public class EcosystemEntityHandler : MonoBehaviour {
 			//entityFocus.renderer.material.color = Color.red;
 
 
-			if(CheckCreateValidity (entityFocus))
+			Action action = ActionDecisionTree (entityFocus);
+
+			if(action == Action.BIRTH)
 			{
 				EcosystemEntity entityFocusComponent = entityFocus.GetComponent<EcosystemEntity> ();
 				CreateEntity (entityFocus);	
 				entityFocusComponent.childData.currentChildrenPerYear++;
+			}else if(action == Action.DEATH)
+			{
+				EcosystemEntity entityFocusComponent = entityFocus.GetComponent<EcosystemEntity> ();
+				entityFocusComponent.Death();	
+				Debug.Log("Death: " + entityFocus.name);
 			}
 
 
@@ -129,7 +140,7 @@ public class EcosystemEntityHandler : MonoBehaviour {
 					assignId++;
 					newInstance = MonoBehaviour.Instantiate (entityF, entityF.transform.position + position, entityF.transform.rotation) as GameObject;
 
-					Ecosystem.atmosphere.OxygenCalc += entityFEco.atmosphereData.oxygenOut;
+					//Ecosystem.atmosphere.OxygenCalc += entityFEco.atmosphereData.oxygenOut;
 
 					//RecordToPNG(hit.textureCoord.x, hit.textureCoord.y);
 					
@@ -151,28 +162,38 @@ public class EcosystemEntityHandler : MonoBehaviour {
 		dictionaryData.entityDictMatureKeys = new List<string>(dictionaryData.entityDictionaryMature.Keys);
 	}
 
-	bool CheckCreateValidity (GameObject entity)
+	Action ActionDecisionTree (GameObject entity)
 	{
 		
 		if (entity != null) {
 
 			EcosystemEntity entityFocusData = entity.GetComponent<EcosystemEntity> ();
 
-			if(entityFocusData.childData.currentChildrenPerYear >= entityFocusData.childData.maxChildrenPerYear)
-			{
-				return false;
+			//Check Birth
+
+			if(entityFocusData.childData.currentChildrenPerYear <= entityFocusData.childData.maxChildrenPerYear //has max children has been reached?
+				&&(!affectedBySeasons || entityFocusData.seedSeason == EcosystemTimeManager.season)	//If affected by seasons is it the correct season
+			    && Ecosystem.atmosphere.Oxygen >= entityFocusData.atmosphereData.oxygenRequirement	//is there the correct amount of oxygen in the atmosphere
+			    && Ecosystem.atmosphere.Co >= entityFocusData.atmosphereData.coRequirement	//is there the correct amount of oxygen in the atmosphere
+			   ){
+				return Action.BIRTH;
 			}
-			if(!affectedBySeasons){
-				return true;
-			}else if(affectedBySeasons && entityFocusData.seedSeason == EcosystemTimeManager.season)
-			{
-				return true;
+
+			//Check Death
+			if(Ecosystem.atmosphere.Oxygen < entityFocusData.atmosphereData.oxygenRequirement	//is there the correct amount of oxygen in the atmosphere
+			   || Ecosystem.atmosphere.Co < entityFocusData.atmosphereData.coRequirement	//is there the correct amount of oxygen in the atmosphere
+				){
+				return Action.DEATH;
 			}
 
 		}
-		return false;
+		return Action.NONE;
 	}
 
+
+	/*
+	 * Record to PNG -Adds the entity position to a png
+	 */
 	void RecordToPNG(float x, float y)
 	{
 		Vector4 changeColour = new Vector4 (255, 255, 0, 1);

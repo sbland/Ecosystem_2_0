@@ -15,5 +15,10 @@ public class PointerGUI : MonoBehaviour
 		{
 	
 		}
+
+	void OnGUI ()
+	{
+		if(PointerClicked.selectedObject != null) GUI.TextArea (new Rect (500, 20, 200, 20), "Selected: " + PointerClicked.selectedObject.name);
+	}
 }
 

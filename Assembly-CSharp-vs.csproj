@@ -84,6 +84,7 @@
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EntityPool.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemEnvironment.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemGUI.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemStats.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemTimeManager.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemWeather.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\EcosystemWeather\EcosystemWeatherCloud.cs" />
@@ -98,10 +99,17 @@
      <Compile Include="Assets\Scripts\Ecosystem\Tests\EntityPoolTest.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\Tests\ParentClass.cs" />
      <Compile Include="Assets\Scripts\Ecosystem\Tests\ParentClassData.cs" />
+     <Compile Include="Assets\Scripts\Inventory\InventoryItem.cs" />
+     <Compile Include="Assets\Scripts\Inventory\InventoryManager.cs" />
+     <Compile Include="Assets\Scripts\Inventory\Tool.cs" />
+     <Compile Include="Assets\Scripts\Player\AbilitiesManager.cs" />
+     <Compile Include="Assets\Scripts\Pointer\ClickOperations\ClickTest.cs" />
      <Compile Include="Assets\Scripts\Pointer\Clickable.cs" />
      <Compile Include="Assets\Scripts\Pointer\MaterialChooser.cs" />
      <Compile Include="Assets\Scripts\Pointer\MaterialChooserGUI.cs" />
      <Compile Include="Assets\Scripts\Pointer\PointerClicked.cs" />
+     <Compile Include="Assets\Scripts\Pointer\PointerGUI.cs" />
+     <Compile Include="Assets\Scripts\Pointer\PointerLiveUpdate.cs" />
      <Compile Include="Assets\Scripts\Pointer\PointerSettings.cs" />
      <Compile Include="Assets\Scripts\Settings.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />

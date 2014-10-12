@@ -204,6 +204,12 @@ public class EcosystemAtmosphere : MonoBehaviour
 		public static readonly string Krypton = "% Krypton";
 		
 	}
+
+	public void AtmosphereCalcs()
+	{
+		Oxygen += OxygenCalc;
+		Co += CoCalc;
+	}
 }
 
 

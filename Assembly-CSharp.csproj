@@ -1,109 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.20506</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8C1D2C96-C3E4-1CC9-B61A-6AECEB94E15E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <BaseDirectory>Assets</BaseDirectory>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{8C1D2C96-C3E4-1CC9-B61A-6AECEB94E15E}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>True</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>False</Optimize>
-    <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_4_5_1;UNITY_4_5;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>0169</NoWarn>
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_5_1;UNITY_4_5;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>True</Optimize>
-    <OutputPath>Temp\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>0169</NoWarn>
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="UnityEngine">
-      <HintPath>E:\Program_Files\Unity-4_5\Editor\Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>E:\Program_Files\Unity-4_5\Editor\Data\Managed\UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>E:/Program_Files/Unity-4_5/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>E:/Program_Files/Unity-4_5/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Ecosystem\Archive\EcosystemEntityData.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Archive\EcosystemEntityTriggerFood.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Archive\EcosystemEntity_SS.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Archive\IEcosystemEntity.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Ecosystem.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemAtmosphere.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntity.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimal.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimalHandler.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHandler.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHuman.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHumanHandler.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTree.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTreeHandler.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EntityPool.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemEnvironment.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemGUI.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemTimeManager.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemWeather.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\EcosystemWeather\EcosystemWeatherCloud.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\General.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\SaveLoadManager.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Tests\ChildClassA.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Tests\ChildClassAData.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Tests\ChildClassB.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Tests\ChildClassBData.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Tests\ControllerClass.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Tests\EntityPoolObjectTest.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Tests\EntityPoolTest.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Tests\ParentClass.cs" />
-    <Compile Include="Assets\Scripts\Ecosystem\Tests\ParentClassData.cs" />
-    <Compile Include="Assets\Scripts\Pointer\Clickable.cs" />
-    <Compile Include="Assets\Scripts\Pointer\MaterialChooser.cs" />
-    <Compile Include="Assets\Scripts\Pointer\MaterialChooserGUI.cs" />
-    <Compile Include="Assets\Scripts\Pointer\PointerClicked.cs" />
-    <Compile Include="Assets\Scripts\Pointer\PointerSettings.cs" />
-    <Compile Include="Assets\Scripts\Settings.cs" />
-    <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
-    <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
-    <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
-    <None Include="Assets\Standard Assets\Tessellation Shaders\BumpedSpecularSmooth.shader" />
-    <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
-    <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
-    <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
-    <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
-    <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
-    <None Include="Assets\Standard Assets\Tessellation Shaders\BumpedSpecularDisplacement.shader" />
-    <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend %28Queue +100%29.shader" />
-    <None Include="Assets\Standard Assets\Water %28Basic%29\Sources\Shaders\FX-Water Simple.shader" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\NamedMonoBehaviour\Internal\NMBColorAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\NamedMonoBehaviour\Internal\NMBNameAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\NamedMonoBehaviour\NamedMonoBehaviour.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\AssetPathAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\BackgroundAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\ButtonAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\ChangeCheckCallbackAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\ColorExtension.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\CommentAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\ComplexHeaderAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\ComponentSelectionAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\HideConditionalAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\HideVariableAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\ImageAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\ImageButtonAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\LayerAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\NamedMonoBehaviourAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\ReorderableListAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\TagAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\TagListAttribute.cs" />
+     <Compile Include="Assets\Illogika\HeavyDutyInspector\PropertyDrawers\TextAreaAttribute.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Archive\EcosystemEntityData.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Archive\EcosystemEntityTriggerFood.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Archive\EcosystemEntity_SS.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Archive\IEcosystemEntity.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Ecosystem.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemAtmosphere.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntity.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimal.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityAnimalHandler.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHandler.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHuman.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityHumanHandler.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTree.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EcosystemEntityTreeHandler.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEntity\EntityPool.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemEnvironment.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemGUI.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemStats.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemTimeManager.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemWeather.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\EcosystemWeather\EcosystemWeatherCloud.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\General.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\SaveLoadManager.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Tests\ChildClassA.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Tests\ChildClassAData.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Tests\ChildClassB.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Tests\ChildClassBData.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Tests\ControllerClass.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Tests\EntityPoolObjectTest.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Tests\EntityPoolTest.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Tests\ParentClass.cs" />
+     <Compile Include="Assets\Scripts\Ecosystem\Tests\ParentClassData.cs" />
+     <Compile Include="Assets\Scripts\Inventory\InventoryItem.cs" />
+     <Compile Include="Assets\Scripts\Inventory\InventoryManager.cs" />
+     <Compile Include="Assets\Scripts\Inventory\Tool.cs" />
+     <Compile Include="Assets\Scripts\Player\AbilitiesManager.cs" />
+     <Compile Include="Assets\Scripts\Pointer\ClickOperations\ClickTest.cs" />
+     <Compile Include="Assets\Scripts\Pointer\Clickable.cs" />
+     <Compile Include="Assets\Scripts\Pointer\MaterialChooser.cs" />
+     <Compile Include="Assets\Scripts\Pointer\MaterialChooserGUI.cs" />
+     <Compile Include="Assets\Scripts\Pointer\PointerClicked.cs" />
+     <Compile Include="Assets\Scripts\Pointer\PointerGUI.cs" />
+     <Compile Include="Assets\Scripts\Pointer\PointerLiveUpdate.cs" />
+     <Compile Include="Assets\Scripts\Pointer\PointerSettings.cs" />
+     <Compile Include="Assets\Scripts\Settings.cs" />
+     <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Basic.shader" />
+     <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
+     <None Include="Assets\Illogika\ScriptTemplates\100-C# Named Script-NewNamedBehaviourScript.cs.txt" />
+     <None Include="Assets\Illogika\HeavyDutyInspector\Readme.txt" />
+     <None Include="Assets\Standard Assets\Tessellation Shaders\BumpedSpecularSmooth.shader" />
+     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-BasicOutline.shader" />
+     <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
+     <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-LightedOutline.shader" />
+     <None Include="Assets\Standard Assets\Toon Shading\Sources\Shaders\Toony-Lighted.shader" />
+     <None Include="Assets\Standard Assets\Tessellation Shaders\BumpedSpecularDisplacement.shader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{BCF4115F-9E5B-D5D7-4F8E-8EC4CBF39E92}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
+      <Project>{BCF4115F-9E5B-D5D7-4F8E-8EC4CBF39E92}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
-      <Project>{26D80A93-DC05-B338-6549-32B442F85CC9}</Project>
-      <Name>Assembly-UnityScript-firstpass</Name>
-    </ProjectReference>
+      <Project>{26D80A93-DC05-B338-6549-32B442F85CC9}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -113,4 +141,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>

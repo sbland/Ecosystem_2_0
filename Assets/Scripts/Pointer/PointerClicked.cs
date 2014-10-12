@@ -4,31 +4,38 @@ using System.Collections;
 
 public class PointerClicked : MonoBehaviour {
 
-
-
-
+	//Selections
 	public static GameObject selectedObject;
-	public Material selectedMaterial;
+	public static GameObject previousSelectedObject;
 
+	//Display
+	public Material highlightSelectedMaterial;
+
+	//MouseControl
 	public GameObject playerController;
 	public GameObject playerCamera;
 	public GameObject guiCamera;
 
-
 	private static GameObject playerControllerStatic;
 	private static GameObject playerCameraStatic;
 	private static GameObject guiCameraStatic;
-	
-	private Material selectedDefaultMaterial;
+
+	PointerSettings pointerSettings;// = gameObject.GetComponent<PointerSettings>();
+
 
 	// Use this for initialization
 	void Start () {
+		//set statics
 		playerControllerStatic = playerController;
 		playerCameraStatic = playerCamera;
 		guiCameraStatic = guiCamera;
 
+		pointerSettings = gameObject.GetComponent<PointerSettings>();
 
-		guiCamera.SetActive(false);
+		if (guiCamera != null) 
+		{
+			guiCamera.SetActive (false);
+		}
 
 	}
 	
@@ -40,54 +47,48 @@ public class PointerClicked : MonoBehaviour {
 		
 		RaycastHit hit;
 		
-		if(Input.GetMouseButtonDown(0))
+		if(Input.GetMouseButtonDown(0) || pointerSettings.liveUpdate)
 		{
+			previousSelectedObject = selectedObject;
+			if(previousSelectedObject != null)
+			{
+				ResetPreviousSelection();
+			}
+
+
 			if (Physics.Raycast (transform.position, fwd, out hit, 10)) 
 			{
+				selectedObject = hit.transform.gameObject;
 				Debug.Log("Clicked on: " + hit.transform.name );
-
-				if(hit.transform.GetComponent<Clickable>())
+								
+				if(selectedObject.GetComponent<Clickable>())
 				{
-					PointerSettings pointerSettings = GetComponent<PointerSettings>();
 					if(!pointerSettings.useTouchOSC)
 					{
 						DisableMouseLook();
-
 					}
 
-
-
-					if(selectedObject != null)
-					{
-						//selectedObject.renderer.material = selectedDefaultMaterial;
-					}
-
-
-					selectedDefaultMaterial = hit.transform.renderer.material;
-
-					selectedObject = hit.transform.gameObject;
-					selectedDefaultMaterial = selectedObject.transform.renderer.material;
-					selectedObject.renderer.material = selectedMaterial;
-
-					Clickable clickable = hit.transform.GetComponent<Clickable>();
-
+				
+					selectedObject.renderer.material = highlightSelectedMaterial;
+					Clickable clickable = selectedObject.GetComponent<Clickable>();
 					clickable.Action();
-
-
-
-				}
-				else{
-					if(selectedObject != null)
-					{
-						selectedObject.renderer.material = selectedDefaultMaterial;
-					}
-
 				}
 
+
+			}else{
+				selectedObject = null;
 			}
 		}
 	}
 
+
+	public void ResetPreviousSelection() {
+		if (previousSelectedObject.GetComponent<Clickable> ())
+			{
+				Clickable clickable = previousSelectedObject.GetComponent<Clickable> ();
+				previousSelectedObject.renderer.material = clickable.storeDefault.defaultMaterial;
+			}
+		}
 	
 	public static void DisableMouseLook(){
 
@@ -95,14 +96,14 @@ public class PointerClicked : MonoBehaviour {
 		playerControllerStatic.GetComponent<MouseLook>().enabled = false;
 		playerControllerStatic.GetComponent<CharacterMotor> ().enabled = false;
 		playerCameraStatic.GetComponent<MouseLook>().enabled = false;
-		guiCameraStatic.SetActive(true);
+		if(guiCameraStatic)guiCameraStatic.SetActive(true);
 	}
 	
 	public static void EnableMouseLook(){
 		playerControllerStatic.GetComponent<MouseLook>().enabled = true;
 		playerControllerStatic.GetComponent<CharacterMotor> ().enabled = true;
 		playerCameraStatic.GetComponent<MouseLook>().enabled = true;
-		guiCameraStatic.SetActive(false);
+		if(guiCameraStatic)guiCameraStatic.SetActive(false);
 	
 	}
 
